@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1511395505007673410}
   - component: {fileID: 2799783633846245495}
   - component: {fileID: 6224757054216168724}
+  - component: {fileID: 6762683400211165560}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -47,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d36d2d283a1564da639d88cc797f22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 100
+  hitPoints: 200
 --- !u!114 &2799783633846245495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,7 +74,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffc2b0081a3d7e34eb99e0b3c1a8e1c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoSlots: []
+  ammoSlots:
+  - ammoType: 0
+    ammoAmount: 20
+  - ammoType: 1
+    ammoAmount: 100
+  - ammoType: 2
+    ammoAmount: 30
+--- !u!114 &6762683400211165560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034250301028760552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fb8c5cee5be1264b9f3fde96c911b22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodImage: {fileID: 0}
+  fadeDuration: 1
 --- !u!1 &2520249846060547156
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b6172180b39f74c966e3639b349de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWeapon: 2
+  currentWeapon: 0
 --- !u!1001 &331708760586271091
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -616,6 +637,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6224757054216168724}
     - target: {fileID: 4295368519497445570, guid: 6c7859e017cea78489d643b95bb38ec3, type: 3}
+      propertyPath: ammoType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4295368519497445570, guid: 6c7859e017cea78489d643b95bb38ec3, type: 3}
       propertyPath: fireRate
       value: 8
       objectReference: {fileID: 0}
@@ -781,6 +806,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6224757054216168724}
     - target: {fileID: 7509303857865502941, guid: 91ae9411a4d02cf41964a3f538884b64, type: 3}
+      propertyPath: ammoType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7509303857865502941, guid: 91ae9411a4d02cf41964a3f538884b64, type: 3}
       propertyPath: fireRate
       value: 24
       objectReference: {fileID: 0}
@@ -925,6 +954,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7798203704998577241}
     m_Modifications:
+    - target: {fileID: 463932958557883593, guid: 8f6ffa8531902024eacf9a90005bc38e, type: 3}
+      propertyPath: m_SpotAngle
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 463932958557883593, guid: 8f6ffa8531902024eacf9a90005bc38e, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 2765820537970972976, guid: 8f6ffa8531902024eacf9a90005bc38e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.51000094
@@ -994,9 +1031,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1820ed370510da447a00801e94b96a7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightDecay: 0.1
-  angleDecay: 0
-  minAngle: 0
+  lightDecay: 5
+  angleDecay: 1
+  minAngle: 40
 --- !u!4 &5421921594257593645 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2765820537970972976, guid: 8f6ffa8531902024eacf9a90005bc38e, type: 3}

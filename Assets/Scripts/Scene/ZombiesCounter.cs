@@ -1,7 +1,11 @@
+//using System;
+using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class ZombiesCounter : MonoBehaviour
 {
+    [SerializeField] TextMeshProUGUI zombiesText;
     [SerializeField] Transform enemies;
 
     EnemyHealth enemyHealth;
@@ -11,7 +15,7 @@ public class ZombiesCounter : MonoBehaviour
     void Awake()
     {
         numberOfZombies = enemies.childCount;
-        Debug.Log(numberOfZombies);
+        zombiesText.text = "Zombies alive : " + numberOfZombies;
     }
 
     void Start()
@@ -22,11 +26,17 @@ public class ZombiesCounter : MonoBehaviour
     public void KillZombie()
     {
         numberOfZombies--;
-        Debug.Log(numberOfZombies);
+        zombiesText.text = "Zombies alive : " + numberOfZombies;
 
         if (numberOfZombies == 0)
         {
-            Time.timeScale = 0;
+            StartCoroutine(HandleVictoryWithDelay());
         }
+    }
+
+    IEnumerator HandleVictoryWithDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        GetComponent<VictoryHandler>().HandleVictory();
     }
 }

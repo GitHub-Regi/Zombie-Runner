@@ -4,6 +4,7 @@ using UnityEngine;
 public class DeathHandler : MonoBehaviour
 {
     [SerializeField] Canvas gameOverCanvas;
+    [SerializeField] AudioSource audioSource;
 
     void Start()
     {
@@ -14,6 +15,7 @@ public class DeathHandler : MonoBehaviour
     {
         gameOverCanvas.enabled = true;
         
+        audioSource.mute = true;
         Time.timeScale = 0;
         FindFirstObjectByType<FirstPersonController>().enabled = false;
         FindFirstObjectByType<WeaponSwitcher>().enabled = false;

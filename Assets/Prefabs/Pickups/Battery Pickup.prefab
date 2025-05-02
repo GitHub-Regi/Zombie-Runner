@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4339066455966504426}
   - component: {fileID: 5549748450221513257}
   - component: {fileID: 4094754211396230191}
+  - component: {fileID: 4949274742099726995}
   m_Layer: 0
   m_Name: Battery Pickup
   m_TagString: Untagged
@@ -70,6 +71,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   restoreIntensity: 200
   restoreAngle: 60
+  batterySound: {fileID: 8300000, guid: 132519e18fcc2a84f9d3997d01640227, type: 3}
+--- !u!114 &4949274742099726995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2455557017727296273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5036b5adedc5704e9db8ea1ec4e4961, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xRotation: 0
+  yRotation: -50
+  zRotation: 0
+  movementVector: {x: 0, y: 0.1, z: 0}
+  speed: 1.5
 --- !u!1 &6506027371026499279
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,5 @@
-using System;
-using Mono.Cecil;
+//using System;
+//using Mono.Cecil;
 using StarterAssets;
 using UnityEngine;
 using TMPro;
@@ -11,6 +11,9 @@ public class Weapon : MonoBehaviour
     [SerializeField] Camera POVCamera;
     [SerializeField] GameObject hitVFX;
     [SerializeField] ParticleSystem muzzleFlash;
+    [SerializeField] AudioSource[] audioSourcePool;
+    [SerializeField] int audioSourcePoolSize;
+    [SerializeField] AudioClip gunSound;
     [SerializeField] TextMeshProUGUI ammoText;
     [SerializeField] float range;
     [SerializeField] float damage;
@@ -19,6 +22,7 @@ public class Weapon : MonoBehaviour
     StarterAssetsInputs inputs;
 
     float nextTimeToFire = 0f;
+    int currentAudioIndex = 0;
 
     void Start()
     {
@@ -28,6 +32,17 @@ public class Weapon : MonoBehaviour
         if (inputs == null)
         {
             Debug.LogError("StarterAssetsInputs not found in scene.");
+        }
+
+        audioSourcePool = new AudioSource[audioSourcePoolSize];
+
+        for (int i = 0; i < audioSourcePoolSize; i++)
+        {
+            GameObject audioObj = new GameObject("GunshotAudioSource_" + i);
+            audioObj.transform.parent = transform;
+            audioObj.transform.localPosition = Vector3.zero;
+            audioSourcePool[i] = audioObj.AddComponent<AudioSource>();
+            audioSourcePool[i].spatialBlend = 1f; 
         }
     }
 
@@ -45,7 +60,7 @@ public class Weapon : MonoBehaviour
     void DisplayAmmo()
     {
         int currentAmmo = ammoSlot.GetCurrentAmmo(ammoType);
-        ammoText.text = currentAmmo.ToString();
+        ammoText.text = "Ammo : " + currentAmmo.ToString();
     }
 
     void Shoot()
@@ -53,6 +68,7 @@ public class Weapon : MonoBehaviour
         if (ammoSlot.GetCurrentAmmo(ammoType) > 0)
         {
             PlayMuzzleFlash();
+            PlayGunshotSound();
 
             ammoSlot.ReduceCurrentAmmo(ammoType);
             
@@ -72,6 +88,29 @@ public class Weapon : MonoBehaviour
     void PlayMuzzleFlash()
     {
         muzzleFlash.Play();
+    }
+
+    void PlayGunshotSound()
+    {
+        if (gunSound != null)
+        {
+            AudioSource currentSource = audioSourcePool[currentAudioIndex];
+
+            if (ammoType == AmmoType.Five_seveN_Bullets)
+            {
+                currentSource.PlayOneShot(gunSound, 0.1f);
+            }
+            else if (ammoType == AmmoType.AK47_Bullets)
+            {
+                currentSource.PlayOneShot(gunSound, 0.03f);
+            }
+            else if (ammoType == AmmoType.M16A1_Bullets)
+            {
+                currentSource.PlayOneShot(gunSound, 0.05f);
+            }
+
+            currentAudioIndex = (currentAudioIndex + 1) % audioSourcePoolSize;
+        }
     }
 
     bool ProcessRaycast()
